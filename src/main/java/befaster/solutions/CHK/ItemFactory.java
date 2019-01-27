@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ItemFactory {
 
@@ -27,7 +28,19 @@ public class ItemFactory {
 
         Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
-        return items.stream().mapToInt(Item::getPrice).sum();
+        List<Discount> itemsHasDiscount = discounts.stream().filter(
+                discount -> {
+                    String sku = discount.getItem().getSku();
+                    return itemCounts.containsKey(sku) && itemCounts.get(sku) == discount.getQuantity();
+                }
+        ).collect(Collectors.toList());
+
+        if (itemsHasDiscount.isEmpty()) {
+            return items.stream().mapToInt(Item::getPrice).sum();
+        }
+
+
+        return itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
     }
 
 
@@ -52,6 +65,7 @@ public class ItemFactory {
 
 
 }
+
 
 
 
