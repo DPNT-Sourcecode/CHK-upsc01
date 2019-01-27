@@ -29,4 +29,18 @@ public class CheckoutSolutionTest {
 
         assertThat(result, is(20));
     }
+
+    @Test
+    public void checkout_shouldReturnPriceOfItemD() {
+        Integer result = checkoutSolution.checkout("D");
+
+        assertThat(result, is(15));
+    }
+
+    @Test
+    public void checkout_shouldReturnTotalPriceOfItemAandB() {
+        Integer result = checkoutSolution.checkout("A,B");
+
+        assertThat(result, is(80));
+    }
 }
