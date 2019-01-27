@@ -3,6 +3,7 @@ package befaster.solutions.CHK;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ItemFactory {
 
@@ -22,27 +23,52 @@ public class ItemFactory {
         Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
         List<Discount> itemsHasDiscount = new ArrayList<>();
-        AtomicBoolean discountPresent = new AtomicBoolean(true);
-        while(discountPresent.get() && itemCounts.size() != 0) {
-             itemsHasDiscount.addAll(discounts.stream().filter(
-                    discount -> {
-                        String sku = discount.getItem().getSku();
-                        discountPresent.set(itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0);
-                        if (discountPresent.get()) {
-                            long newCount = itemCounts.get(sku) - discount.getQuantity();
-                            itemCounts.replace(sku, newCount);
-                            if (newCount == 0) {
-                                itemCounts.remove(sku);
-                            }
+        final boolean[] discountPresent = {true};
+        while(discountPresent[0] && itemCounts.size() != 0) {
 
-                            for (int i = 0; i < discount.getQuantity(); i++) {
-                                Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
-                                first.ifPresent(items::remove);
-                            }
-                        }
-                        return discountPresent.get();
+            itemCounts.forEach((sku, count) -> {
+                Optional<Discount> discountStream = discounts.stream()
+                        .filter(discount -> sku.equals(discount.getItem().getSku()) && count % discount.getQuantity() == 0)
+                        .findAny();
+
+                if (discountStream.isPresent()) {
+                    itemsHasDiscount.add(discountStream.get());
+                    long newCount = itemCounts.get(sku) - discountStream.get().getQuantity();
+                    itemCounts.replace(sku, newCount);
+                    if (newCount == 0) {
+                        itemCounts.remove(sku);
                     }
-            ).collect(Collectors.toList()));
+
+                    for (int i = 0; i < discountStream.get().getQuantity(); i++) {
+                        Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
+                        first.ifPresent(items::remove);
+                    }
+                } else {
+                    discountPresent[0] = false;
+                }
+            });
+
+
+
+//             itemsHasDiscount.addAll(discounts.stream().filter(
+//                    discount -> {
+//                        String sku = discount.getItem().getSku();
+//                        discountPresent[0].set(itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0);
+//                        if (discountPresent[0].get()) {
+//                            long newCount = itemCounts.get(sku) - discount.getQuantity();
+//                            itemCounts.replace(sku, newCount);
+//                            if (newCount == 0) {
+//                                itemCounts.remove(sku);
+//                            }
+//
+//                            for (int i = 0; i < discount.getQuantity(); i++) {
+//                                Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
+//                                first.ifPresent(items::remove);
+//                            }
+//                        }
+//                        return discountPresent[0].get();
+//                    }
+//            ).collect(Collectors.toList()));
         }
 
         int total = 0;
@@ -71,5 +97,6 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
 
