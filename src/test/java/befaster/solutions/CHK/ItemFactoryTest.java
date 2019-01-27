@@ -107,6 +107,3 @@ public class ItemFactoryTest {
         assertThat(result, is(45));
     }
 }
-
-
-

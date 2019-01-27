@@ -19,4 +19,3 @@ public class Offers {
         return discountedPrice;
     }
 }
-
