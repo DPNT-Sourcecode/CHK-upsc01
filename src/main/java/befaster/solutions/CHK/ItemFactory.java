@@ -29,16 +29,13 @@ public class ItemFactory {
 
             itemCounts.forEach((sku, count) -> {
                 Optional<Discount> discountStream = discounts.stream()
-                        .filter(discount -> sku.equals(discount.getItem().getSku()) && count % discount.getQuantity() == 0)
+                        .filter(discount -> sku.equals(discount.getItem().getSku()) && count > 0 &&count % discount.getQuantity() == 0)
                         .findAny();
 
                 if (discountStream.isPresent()) {
                     itemsHasDiscount.add(discountStream.get());
                     long newCount = itemCounts.get(sku) - discountStream.get().getQuantity();
                     itemCounts.replace(sku, newCount);
-//                    if (newCount == 0) {
-//                        itemCounts.remove(sku);
-//                    }
 
                     for (int i = 0; i < discountStream.get().getQuantity(); i++) {
                         Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
@@ -48,28 +45,6 @@ public class ItemFactory {
                     discountPresent[0] = false;
                 }
             });
-
-
-
-//             itemsHasDiscount.addAll(discounts.stream().filter(
-//                    discount -> {
-//                        String sku = discount.getItem().getSku();
-//                        discountPresent[0].set(itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0);
-//                        if (discountPresent[0].get()) {
-//                            long newCount = itemCounts.get(sku) - discount.getQuantity();
-//                            itemCounts.replace(sku, newCount);
-//                            if (newCount == 0) {
-//                                itemCounts.remove(sku);
-//                            }
-//
-//                            for (int i = 0; i < discount.getQuantity(); i++) {
-//                                Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
-//                                first.ifPresent(items::remove);
-//                            }
-//                        }
-//                        return discountPresent[0].get();
-//                    }
-//            ).collect(Collectors.toList()));
         }
 
         int total = 0;
@@ -98,7 +73,3 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
-
-
-
-
