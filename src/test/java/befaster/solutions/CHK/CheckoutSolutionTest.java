@@ -87,10 +87,18 @@ public class CheckoutSolutionTest {
     }
 
     @Test
+    public void checkout_fixFailingScenario() {
+        Integer result = checkoutSolution.checkout("ABCDCBAABCABBAAA");
+
+        assertThat(result, is(540));
+    }
+
+    @Test
     public void checkout_shouldReturnZeroForEmptyString() {
         Integer result = checkoutSolution.checkout("");
 
         assertThat(result, is(0));
     }
 }
+
 
