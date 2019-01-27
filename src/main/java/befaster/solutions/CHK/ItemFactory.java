@@ -2,8 +2,6 @@ package befaster.solutions.CHK;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ItemFactory {
 
@@ -22,3 +20,4 @@ public class ItemFactory {
         return items.stream().filter(item -> a.equals(item.getSku())).findFirst().orElse(null);
     }
 }
+

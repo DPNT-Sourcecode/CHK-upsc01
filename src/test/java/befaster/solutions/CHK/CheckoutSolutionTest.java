@@ -52,6 +52,13 @@ public class CheckoutSolutionTest {
     }
 
     @Test
+    public void checkout_shouldReturnMinusOneForInvalidInput() {
+        Integer result = checkoutSolution.checkout("dsa");
+
+        assertThat(result, is(-1));
+    }
+
+    @Test
     public void checkout_shouldReturnTotalPriceOf3ItemAS() {
         Integer result = checkoutSolution.checkout("A,A,A");
 
