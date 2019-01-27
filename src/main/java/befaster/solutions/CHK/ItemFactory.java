@@ -3,6 +3,7 @@ package befaster.solutions.CHK;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,16 +32,21 @@ public class ItemFactory {
         List<Discount> itemsHasDiscount = discounts.stream().filter(
                 discount -> {
                     String sku = discount.getItem().getSku();
-                    return itemCounts.containsKey(sku) && itemCounts.get(sku) == discount.getQuantity();
+                    boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) == discount.getQuantity();
+                    if (discountPresent) {
+                        for (int i = 0; i < discount.getQuantity(); i++) {
+                            Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
+                            first.ifPresent(items::remove);
+                        }
+                    }
+                    return discountPresent;
                 }
         ).collect(Collectors.toList());
 
 
         int total = 0;
         total += itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
-
-
-            total += items.stream().mapToInt(Item::getPrice).sum();
+        total += items.stream().mapToInt(Item::getPrice).sum();
 
 
         return total;
@@ -68,4 +74,5 @@ public class ItemFactory {
 
 
 }
+
 
