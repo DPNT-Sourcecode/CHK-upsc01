@@ -13,7 +13,7 @@ public class CheckoutSolution {
         }
 
         ItemFactory itemFactory = new ItemFactory();
-        String[] individualSkus = skus.split(",");
+        String[] individualSkus = skus.split("");
 
         List<Item> items = new ArrayList<>();
         for (String sku:individualSkus) {
@@ -28,3 +28,4 @@ public class CheckoutSolution {
         return itemFactory.getTotalPrice(items);
     }
 }
+
