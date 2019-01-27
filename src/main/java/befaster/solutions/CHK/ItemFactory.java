@@ -83,5 +83,3 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
-
-
