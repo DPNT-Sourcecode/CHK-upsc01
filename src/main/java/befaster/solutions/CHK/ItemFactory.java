@@ -41,7 +41,7 @@ public class ItemFactory {
                     itemCounts.replace(sku, newCount);
 
                     for (Item item : discountStream.get().getItems()) {
-                        items.remove(item);
+                        items.removeIf(thisItem -> thisItem.getSku().equals(item.getSku()));
                     }
 
 
@@ -82,6 +82,7 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
 
 
