@@ -21,7 +21,7 @@ public class ItemFactory {
     }
 
     public static Integer getTotalPrice(List<Item> items) {
-        return null;
+        return items.stream().mapToInt(Item::getPrice).sum();
     }
 }
 
