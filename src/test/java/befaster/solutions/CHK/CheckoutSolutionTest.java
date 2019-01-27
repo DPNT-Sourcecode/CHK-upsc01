@@ -11,7 +11,6 @@ public class CheckoutSolutionTest {
 
     @Test
     public void checkout_shouldReturnPriceOfItemA() {
-
         Integer result = checkoutSolution.checkout("A");
 
         assertThat(result, is(50));
@@ -22,5 +21,12 @@ public class CheckoutSolutionTest {
         Integer result = checkoutSolution.checkout("B");
 
         assertThat(result, is(30));
+    }
+
+    @Test
+    public void checkout_shouldReturnPriceOfItemC() {
+        Integer result = checkoutSolution.checkout("C");
+
+        assertThat(result, is(20));
     }
 }
