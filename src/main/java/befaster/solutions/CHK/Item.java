@@ -18,4 +18,3 @@ public class Item {
         return Price;
     }
 }
-
