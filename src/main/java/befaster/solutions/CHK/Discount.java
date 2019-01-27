@@ -1,21 +1,26 @@
 package befaster.solutions.CHK;
 
-import java.util.List;
-
 public class Discount {
-    private final List<Item> items;
+    private final Item item;
+    private final int quantity;
     private final int descountedPrice;
 
-    public Discount(List<Item> items, int descountedPrice) {
-        this.items = items;
+    public Discount(Item item, int quantity, int descountedPrice) {
+        this.item = item;
+        this.quantity = quantity;
         this.descountedPrice = descountedPrice;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public Item getItem() {
+        return item;
     }
 
     public int getDescountedPrice() {
         return descountedPrice;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }
+

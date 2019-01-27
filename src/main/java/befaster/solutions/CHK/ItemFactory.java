@@ -6,11 +6,11 @@ import java.util.List;
 public class ItemFactory {
 
     private final List<Item> items;
+    private final List<Discount> discounts;
 
     public ItemFactory() {
         items = createItems();
-
-
+        discounts = createDiscounts();
     }
 
 
@@ -20,12 +20,21 @@ public class ItemFactory {
     }
 
     public Integer getTotalPrice(List<Item> items) {
+        
+
+
         return items.stream().mapToInt(Item::getPrice).sum();
     }
 
 
-    private Integer getDiscountedValueOfA() {
-        return null;
+    private List<Discount> createDiscounts() {
+        Item a = new Item("A", 50);
+
+
+        Discount discountA = new Discount(a, 3, 130);
+
+
+        return Arrays.asList(discountA);
     }
 
     private List<Item> createItems() {
@@ -39,3 +48,4 @@ public class ItemFactory {
 
 
 }
+
