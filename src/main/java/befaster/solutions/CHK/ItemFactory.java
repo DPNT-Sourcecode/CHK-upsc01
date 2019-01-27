@@ -23,7 +23,7 @@ public class ItemFactory {
     }
 
     private Offer getOffers(List<Item> items) {
-        return offers.stream().filter(offer -> offer.getItems().containsAll(items)).findFirst().orElse(null);
+        return offers.stream().filter(offer -> items.containsAll(offer.getItems())).findFirst().orElse(null);
     }
 
     public Integer getTotalPrice(List<Item> items) {
@@ -82,4 +82,5 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
