@@ -89,10 +89,15 @@ public class CheckoutSolutionTest {
     @Test
     public void checkout_fixFailingScenario() {
         Integer result = checkoutSolution.checkout("ABCDCBAABCABBAAA");
-//        130 + 130 + 50 + 45 + 45 + 30 + 60 + 15
-
 
         assertThat(result, is(505));
+    }
+
+    @Test
+    public void checkout_shouldReturnTotalPriceOfDiscountsWith5AItems() {
+        Integer result = checkoutSolution.checkout("AAAAA");
+
+        assertThat(result, is(200));
     }
 
     @Test
