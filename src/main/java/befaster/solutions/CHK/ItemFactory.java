@@ -2,6 +2,8 @@ package befaster.solutions.CHK;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ItemFactory {
 
@@ -20,8 +22,10 @@ public class ItemFactory {
     }
 
     public Integer getTotalPrice(List<Item> items) {
-        
 
+        List<Item> discountSkus = discounts.stream().map(Discount::getItem).collect(Collectors.toList());
+
+        Map<Item, Long> itemCounts = items.stream().collect(Collectors.groupingBy(item -> item, Collectors.counting()));
 
         return items.stream().mapToInt(Item::getPrice).sum();
     }
@@ -48,4 +52,5 @@ public class ItemFactory {
 
 
 }
+
 
