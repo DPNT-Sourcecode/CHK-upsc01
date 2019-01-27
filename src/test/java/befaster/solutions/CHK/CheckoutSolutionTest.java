@@ -88,7 +88,7 @@ public class CheckoutSolutionTest {
 
     @Test
     public void checkout_fixFailingScenario() {
-        Integer result = checkoutSolution.checkout("ABCDCBAABCABBAAA"); //a 7, b 5, c 3, d 1
+        Integer result = checkoutSolution.checkout("ABCDCBAABCABBAAA");
 //        130 + 130 + 50 + 45 + 45 + 30 + 60 + 15
 
 
