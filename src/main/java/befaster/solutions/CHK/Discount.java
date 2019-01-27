@@ -19,4 +19,3 @@ public class Discount {
         return descountedPrice;
     }
 }
-
