@@ -80,9 +80,17 @@ public class CheckoutSolutionTest {
     }
 
     @Test
+    public void checkout_shouldReturnCorrectPriceOfBItems() {
+        Integer result = checkoutSolution.checkout("BBBBB");
+
+        assertThat(result, is(120));
+    }
+
+    @Test
     public void checkout_shouldReturnZeroForEmptyString() {
         Integer result = checkoutSolution.checkout("");
 
         assertThat(result, is(0));
     }
 }
+
