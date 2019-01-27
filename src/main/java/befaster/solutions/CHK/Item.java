@@ -1,5 +1,7 @@
 package befaster.solutions.CHK;
 
+import java.util.Objects;
+
 public class Item {
 
     private final String sku;
@@ -17,4 +19,20 @@ public class Item {
     public int getPrice() {
         return Price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Price == item.Price &&
+                Objects.equals(sku, item.sku);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(sku, Price);
+    }
 }
+

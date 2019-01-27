@@ -84,18 +84,18 @@ public class ItemFactoryTest {
         assertThat(result, is(260));
     }
 
-//    @Test
-//    public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscountFor5ItemA() {
-//        List<Item> items = new ArrayList<>();
-//        items.add(new Item("A", 50));
-//        items.add(new Item("A", 50));
-//        items.add(new Item("A", 50));
-//        items.add(new Item("A", 50));
-//        items.add(new Item("A", 50));
-//
-//        Integer result = itemFactory.getTotalPrice(items);
-//        assertThat(result, is(200));
-//    }
+    @Test
+    public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscountFor5ItemA() {
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+
+        Integer result = itemFactory.getTotalPrice(items);
+        assertThat(result, is(200));
+    }
 
     @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoDiscountsForItemB() {
@@ -107,5 +107,6 @@ public class ItemFactoryTest {
         assertThat(result, is(45));
     }
 }
+
 
 

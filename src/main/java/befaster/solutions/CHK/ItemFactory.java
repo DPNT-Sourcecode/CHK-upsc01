@@ -41,14 +41,8 @@ public class ItemFactory {
                     itemCounts.replace(sku, newCount);
 
                     for (Item item : discountStream.get().getItems()) {
-                        items.removeIf(thisItem -> thisItem.getSku().equals(item.getSku()));
+                        items.remove(item);
                     }
-
-
-//                    for (int b = 0; b < discountStream.get().getItems().size(); b++) {
-//                        Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
-//                        first.ifPresent(items::remove);
-//                    }
                 } else {
                     discountPresent[0] = false;
                 }
@@ -67,10 +61,10 @@ public class ItemFactory {
         Item b = new Item("B", 30);
 
         Offers offersFor3A = new Offers(Arrays.asList(a, a, a), 130);
-//        Offers offersFor5A = new Offers(Arrays.asList(a, a, a, a, a), 200);
+        Offers offersFor5A = new Offers(Arrays.asList(a, a, a, a, a), 200);
         Offers offersB = new Offers(Arrays.asList(b, b), 45);
 
-        return Arrays.asList(offersB, offersFor3A);
+        return Arrays.asList(offersFor5A, offersB, offersFor3A);
     }
 
     private List<Item> createItems() {
@@ -82,6 +76,7 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
 
 
