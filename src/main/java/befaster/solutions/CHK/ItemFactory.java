@@ -29,7 +29,7 @@ public class ItemFactory {
         List<Discount> itemsHasDiscount = new ArrayList<>();
         final boolean[] discountPresent = {true};
 
-        while(discountPresent[0] && itemCounts.size() != 0) {
+        while(discountPresent[0] && items.size() != 0) {
 
             itemCounts.forEach((sku, count) -> {
                 Optional<Discount> discountStream = Optional.ofNullable(getDiscount(sku));
@@ -96,3 +96,4 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
