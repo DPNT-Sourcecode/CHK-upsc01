@@ -90,7 +90,7 @@ public class CheckoutSolutionTest {
     public void checkout_fixFailingScenario() {
         Integer result = checkoutSolution.checkout("ABCDCBAABCABBAAA");
 
-        assertThat(result, is(540));
+        assertThat(result, is(505));
     }
 
     @Test
@@ -100,5 +100,6 @@ public class CheckoutSolutionTest {
         assertThat(result, is(0));
     }
 }
+
 
 
