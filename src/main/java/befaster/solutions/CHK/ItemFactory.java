@@ -1,9 +1,6 @@
 package befaster.solutions.CHK;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ItemFactory {
@@ -23,19 +20,27 @@ public class ItemFactory {
     public Integer getTotalPrice(List<Item> items) {
         Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
-        List<Discount> itemsHasDiscount = discounts.stream().filter(
-                discount -> {
-                    String sku = discount.getItem().getSku();
-                    boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0;
-                    if (discountPresent) {
-                        for (int i = 0; i < discount.getQuantity(); i++) {
-                            Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
-                            first.ifPresent(items::remove);
+
+
+
+
+        List<Discount> itemsHasDiscount = new ArrayList<>();
+        while(itemCounts.size() == 0) {
+             itemsHasDiscount.addAll(discounts.stream().filter(
+                    discount -> {
+                        String sku = discount.getItem().getSku();
+                        boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0;
+                        if (discountPresent) {
+                            itemCounts.replace(sku, itemCounts.get(sku), itemCounts.get(sku) - discount.getQuantity());
+                            for (int i = 0; i < discount.getQuantity(); i++) {
+                                Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
+                                first.ifPresent(items::remove);
+                            }
                         }
+                        return discountPresent;
                     }
-                    return discountPresent;
-                }
-        ).collect(Collectors.toList());
+            ).collect(Collectors.toList()));
+        }
 
 
         int total = 0;
@@ -64,4 +69,5 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
