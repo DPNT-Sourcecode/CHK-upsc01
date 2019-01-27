@@ -1,6 +1,7 @@
 package befaster.solutions.CHK;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class ItemFactory {
@@ -20,17 +21,14 @@ public class ItemFactory {
     public Integer getTotalPrice(List<Item> items) {
         Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
-
-
-
-
         List<Discount> itemsHasDiscount = new ArrayList<>();
-        while(itemCounts.size() != 0) {
+        AtomicBoolean discountPresent = new AtomicBoolean(true);
+        while(discountPresent.get() && itemCounts.size() != 0) {
              itemsHasDiscount.addAll(discounts.stream().filter(
                     discount -> {
                         String sku = discount.getItem().getSku();
-                        boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0;
-                        if (discountPresent) {
+                        discountPresent.set(itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0);
+                        if (discountPresent.get()) {
                             long newCount = itemCounts.get(sku) - discount.getQuantity();
                             itemCounts.replace(sku, newCount);
                             if (newCount == 0) {
@@ -42,11 +40,10 @@ public class ItemFactory {
                                 first.ifPresent(items::remove);
                             }
                         }
-                        return discountPresent;
+                        return discountPresent.get();
                     }
             ).collect(Collectors.toList()));
         }
-
 
         int total = 0;
         total += itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
@@ -74,4 +71,5 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
