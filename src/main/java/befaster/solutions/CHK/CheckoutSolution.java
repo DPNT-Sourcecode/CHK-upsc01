@@ -1,17 +1,19 @@
 package befaster.solutions.CHK;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
-        ItemFactory itemFactory = new ItemFactory();
-        String[] individualSkus = skus.split(",");
-
-        if (individualSkus.length == 0) {
+        if (skus.isEmpty()) {
             return 0;
         }
+
+        ItemFactory itemFactory = new ItemFactory();
+        String[] individualSkus = skus.split(",");
 
         List<Item> items = new ArrayList<>();
         for (String sku:individualSkus) {
@@ -26,3 +28,4 @@ public class CheckoutSolution {
         return itemFactory.getTotalPrice(items);
     }
 }
+
