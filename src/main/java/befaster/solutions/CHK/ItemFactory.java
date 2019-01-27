@@ -19,6 +19,10 @@ public class ItemFactory {
         return items.stream().filter(item -> a.equals(item.getSku())).findFirst().orElse(null);
     }
 
+    private Discount getDiscount(String sku) {
+        return discounts.stream().filter(discount -> sku.equals(discount.getItem().getSku())).findFirst().orElse(null);
+    }
+
     public Integer getTotalPrice(List<Item> items) {
         Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
@@ -47,6 +51,27 @@ public class ItemFactory {
             });
         }
 
+
+//        itemsHasDiscount.addAll(discounts.stream().filter(
+//                    discount -> {
+//                        String sku = discount.getItem().getSku();
+//                        discountPresent[0].set(itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0);
+//                        if (discountPresent[0].get()) {
+//                            long newCount = itemCounts.get(sku) - discount.getQuantity();
+//                            itemCounts.replace(sku, newCount);
+//                            if (newCount == 0) {
+//                                itemCounts.remove(sku);
+//                            }
+//
+//                            for (int i = 0; i < discount.getQuantity(); i++) {
+//                                Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
+//                                first.ifPresent(items::remove);
+//                            }
+//                        }
+//                        return discountPresent[0].get();
+//                    }
+//            ).collect(Collectors.toList()));
+
         int total = 0;
         total += itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
         total += items.stream().mapToInt(Item::getPrice).sum();
@@ -73,4 +98,5 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
