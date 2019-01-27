@@ -29,7 +29,7 @@ public class ItemFactory {
 
             itemCounts.forEach((sku, count) -> {
                 Optional<Discount> discountStream = discounts.stream()
-                        .filter(discount -> sku.equals(discount.getItem().getSku()) && count > 0 &&count % discount.getQuantity() == 0)
+                        .filter(discount -> sku.equals(discount.getItem().getSku()) && count > 0 && (count >= discount.getQuantity() || count % discount.getQuantity() == 0))
                         .findAny();
 
                 if (discountStream.isPresent()) {
@@ -73,3 +73,4 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
