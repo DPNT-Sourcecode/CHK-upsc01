@@ -24,6 +24,7 @@ public class ItemFactory {
 
         List<Discount> itemsHasDiscount = new ArrayList<>();
         final boolean[] discountPresent = {true};
+
         while(discountPresent[0] && itemCounts.size() != 0) {
 
             itemCounts.forEach((sku, count) -> {
@@ -35,9 +36,9 @@ public class ItemFactory {
                     itemsHasDiscount.add(discountStream.get());
                     long newCount = itemCounts.get(sku) - discountStream.get().getQuantity();
                     itemCounts.replace(sku, newCount);
-                    if (newCount == 0) {
-                        itemCounts.remove(sku);
-                    }
+//                    if (newCount == 0) {
+//                        itemCounts.remove(sku);
+//                    }
 
                     for (int i = 0; i < discountStream.get().getQuantity(); i++) {
                         Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
@@ -97,6 +98,7 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
 
 
