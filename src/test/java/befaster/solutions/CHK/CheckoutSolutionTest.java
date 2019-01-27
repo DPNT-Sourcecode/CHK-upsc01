@@ -39,14 +39,14 @@ public class CheckoutSolutionTest {
 
     @Test
     public void checkout_shouldReturnTotalPriceOfItemAandB() {
-        Integer result = checkoutSolution.checkout("A,B");
+        Integer result = checkoutSolution.checkout("AB");
 
         assertThat(result, is(80));
     }
 
     @Test
     public void checkout_shouldReturnTotalPriceOfItemsABCD() {
-        Integer result = checkoutSolution.checkout("A,B,C,D");
+        Integer result = checkoutSolution.checkout("ABCD");
 
         assertThat(result, is(115));
     }
@@ -60,7 +60,7 @@ public class CheckoutSolutionTest {
 
     @Test
     public void checkout_shouldReturnTotalPriceOf3ItemAS() {
-        Integer result = checkoutSolution.checkout("A, A, A");
+        Integer result = checkoutSolution.checkout("AAA");
 
         assertThat(result, is(130));
     }
