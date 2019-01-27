@@ -66,9 +66,9 @@ public class CheckoutSolutionTest {
     }
 
     @Test
-    public void checkout_shouldHandleLowerCase() {
-        Integer result = checkoutSolution.checkout("A,b,C , d, d");
+    public void checkout_shouldReturnZeroForEmptyString() {
+        Integer result = checkoutSolution.checkout("");
 
-        assertThat(result, is(130));
+        assertThat(result, is(0));
     }
 }

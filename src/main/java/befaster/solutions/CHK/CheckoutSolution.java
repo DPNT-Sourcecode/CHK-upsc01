@@ -9,9 +9,13 @@ public class CheckoutSolution {
         ItemFactory itemFactory = new ItemFactory();
         String[] individualSkus = skus.split(",");
 
+        if (individualSkus.length == 0) {
+            return 0;
+        }
+
         List<Item> items = new ArrayList<>();
         for (String sku:individualSkus) {
-            Optional<Item> item = Optional.ofNullable(itemFactory.getItem(sku.trim().toUpperCase()));
+            Optional<Item> item = Optional.ofNullable(itemFactory.getItem(sku.trim()));
             if (item.isPresent()) {
                 items.add(item.get());
             } else {
