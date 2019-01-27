@@ -59,6 +59,21 @@ public class ItemFactoryTest {
     }
 
     @Test
+    public void getTotalPriceReturnsTotalPriceTakingIntoAccountMultipleDiscounts() {
+
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+
+        Integer result = itemFactory.getTotalPrice(items);
+        assertThat(result, is(260));
+    }
+
+    @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoDiscountsForItemB() {
 
         List<Item> items = new ArrayList<>();

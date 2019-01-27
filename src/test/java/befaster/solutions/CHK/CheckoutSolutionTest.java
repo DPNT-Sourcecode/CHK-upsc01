@@ -66,6 +66,13 @@ public class CheckoutSolutionTest {
     }
 
     @Test
+    public void checkout_shouldReturnTotalPriceOfMultipleDiscountedItems() {
+        Integer result = checkoutSolution.checkout("AAAAAA");
+
+        assertThat(result, is(260));
+    }
+
+    @Test
     public void checkout_shouldReturnZeroForEmptyString() {
         Integer result = checkoutSolution.checkout("");
 

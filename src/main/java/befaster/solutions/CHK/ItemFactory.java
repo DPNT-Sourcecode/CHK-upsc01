@@ -26,7 +26,7 @@ public class ItemFactory {
         List<Discount> itemsHasDiscount = discounts.stream().filter(
                 discount -> {
                     String sku = discount.getItem().getSku();
-                    boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) == discount.getQuantity();
+                    boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0;
                     if (discountPresent) {
                         for (int i = 0; i < discount.getQuantity(); i++) {
                             Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
@@ -64,3 +64,4 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
