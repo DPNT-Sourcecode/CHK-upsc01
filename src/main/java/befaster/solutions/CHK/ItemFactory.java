@@ -32,11 +32,9 @@ public class ItemFactory {
         while(discountPresent[0] && itemCounts.size() != 0) {
 
             itemCounts.forEach((sku, count) -> {
-                Optional<Discount> discountStream = discounts.stream()
-                        .filter(discount -> sku.equals(discount.getItem().getSku()) && count > 0 && (count >= discount.getQuantity() || count % discount.getQuantity() == 0))
-                        .findAny();
+                Optional<Discount> discountStream = Optional.ofNullable(getDiscount(sku));
 
-                if (discountStream.isPresent()) {
+                if (discountStream.isPresent() && count > 0 && (count >= discountStream.get().getQuantity() || count % discountStream.get().getQuantity() == 0)) {
                     itemsHasDiscount.add(discountStream.get());
                     long newCount = itemCounts.get(sku) - discountStream.get().getQuantity();
                     itemCounts.replace(sku, newCount);
@@ -98,5 +96,3 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
-
-
