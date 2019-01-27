@@ -1,9 +1,7 @@
 package befaster.solutions.CHK;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ItemFactory {
 
@@ -35,11 +33,6 @@ public class ItemFactory {
                 String sku = items.get(i).getSku();
                 Long count = itemCounts.get(sku);
 
-
-//            }
-
-
-//            itemCounts.forEach((sku, count) -> {
                 Optional<Discount> discountStream = Optional.ofNullable(getDiscount(sku));
 
                 if (discountStream.isPresent() && count > 0 && (count >= discountStream.get().getQuantity() || count % discountStream.get().getQuantity() == 0)) {
@@ -68,10 +61,11 @@ public class ItemFactory {
         Item a = new Item("A", 50);
         Item b = new Item("B", 30);
 
-        Discount discountA = new Discount(a, 3, 130);
+        Discount discountFor3A = new Discount(a, 3, 130);
+        Discount discountFor5A = new Discount(a, 5, 200);
         Discount discountB = new Discount(b, 2, 45);
 
-        return Arrays.asList(discountA, discountB);
+        return Arrays.asList(discountFor5A, discountB, discountFor3A);
     }
 
     private List<Item> createItems() {
@@ -83,3 +77,4 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
