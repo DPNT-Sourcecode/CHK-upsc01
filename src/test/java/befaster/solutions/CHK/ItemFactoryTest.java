@@ -48,7 +48,6 @@ public class ItemFactoryTest {
 
     @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscountsAndNormalPrice() {
-
         List<Item> items = new ArrayList<>();
         items.add(new Item("A", 50));
         items.add(new Item("A", 50));
@@ -108,3 +107,4 @@ public class ItemFactoryTest {
         assertThat(result, is(45));
     }
 }
+
