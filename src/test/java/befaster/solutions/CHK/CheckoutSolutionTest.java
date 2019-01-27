@@ -43,4 +43,18 @@ public class CheckoutSolutionTest {
 
         assertThat(result, is(80));
     }
+
+    @Test
+    public void checkout_shouldReturnTotalPriceOfItemsABCD() {
+        Integer result = checkoutSolution.checkout("A,B,C,D");
+
+        assertThat(result, is(115));
+    }
+
+    @Test
+    public void checkout_shouldReturnTotalPriceOf3ItemAS() {
+        Integer result = checkoutSolution.checkout("A,A,A");
+
+        assertThat(result, is(130));
+    }
 }
