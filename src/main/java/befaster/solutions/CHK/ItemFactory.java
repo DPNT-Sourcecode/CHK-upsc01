@@ -35,12 +35,14 @@ public class ItemFactory {
                 }
         ).collect(Collectors.toList());
 
+
+        int total = 0;
         if (itemsHasDiscount.isEmpty()) {
-            return items.stream().mapToInt(Item::getPrice).sum();
+            total = items.stream().mapToInt(Item::getPrice).sum();
         }
 
-
-        return itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
+        total += itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
+        return total;
     }
 
 
@@ -65,7 +67,3 @@ public class ItemFactory {
 
 
 }
-
-
-
-

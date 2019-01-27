@@ -40,5 +40,11 @@ public class ItemFactoryTest {
         assertThat(result, is(130));
     }
 
-}
+    @Test
+    public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscountsAndNormalPrice() {
+        List<Item> items = Arrays.asList(new Item("A", 50), new Item("A", 50), new Item("A", 50), new Item("B", 30));
+        Integer result = itemFactory.getTotalPrice(items);
+        assertThat(result, is(160));
+    }
 
+}
