@@ -25,7 +25,7 @@ public class ItemFactory {
 
         List<Item> discountSkus = discounts.stream().map(Discount::getItem).collect(Collectors.toList());
 
-        Map<Item, Long> itemCounts = items.stream().collect(Collectors.groupingBy(item -> item, Collectors.counting()));
+        Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
         return items.stream().mapToInt(Item::getPrice).sum();
     }
@@ -52,5 +52,6 @@ public class ItemFactory {
 
 
 }
+
 
 

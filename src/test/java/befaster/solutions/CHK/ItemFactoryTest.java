@@ -35,7 +35,7 @@ public class ItemFactoryTest {
 
     @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscounts() {
-        List<Item> items = Arrays.asList(new Item("A", 50), new Item("A", 50), new Item("A", 50));
+        List<Item> items = Arrays.asList(new Item("A", 50), new Item("A", 50), new Item("B", 50));
         Integer result = itemFactory.getTotalPrice(items);
         assertThat(result, is(130));
     }
