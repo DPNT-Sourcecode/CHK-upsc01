@@ -40,10 +40,15 @@ public class ItemFactory {
                     long newCount = itemCounts.get(sku) - discountStream.get().getItems().size();
                     itemCounts.replace(sku, newCount);
 
-                    for (int b = 0; b < discountStream.get().getItems().size(); b++) {
-                        Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
-                        first.ifPresent(items::remove);
+                    for (Item item : discountStream.get().getItems()) {
+                        items.remove(item);
                     }
+
+
+//                    for (int b = 0; b < discountStream.get().getItems().size(); b++) {
+//                        Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
+//                        first.ifPresent(items::remove);
+//                    }
                 } else {
                     discountPresent[0] = false;
                 }
@@ -77,5 +82,6 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
 
 
