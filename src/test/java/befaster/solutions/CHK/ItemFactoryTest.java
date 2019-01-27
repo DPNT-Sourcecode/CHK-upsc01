@@ -2,6 +2,7 @@ package befaster.solutions.CHK;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,16 +36,36 @@ public class ItemFactoryTest {
 
     @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscounts() {
-        List<Item> items = Arrays.asList(new Item("A", 50), new Item("A", 50), new Item("A", 50));
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+
         Integer result = itemFactory.getTotalPrice(items);
+
         assertThat(result, is(130));
     }
 
     @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscountsAndNormalPrice() {
-        List<Item> items = Arrays.asList(new Item("A", 50), new Item("A", 50), new Item("A", 50), new Item("B", 30));
+
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("B", 30));
         Integer result = itemFactory.getTotalPrice(items);
         assertThat(result, is(160));
+    }
+
+    @Test
+    public void getTotalPriceReturnsTotalPriceTakingIntoDiscountsForItemB() {
+
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("B", 30));
+        items.add(new Item("B", 30));
+        Integer result = itemFactory.getTotalPrice(items);
+        assertThat(result, is(45));
     }
 
 }
