@@ -60,7 +60,7 @@ public class CheckoutSolutionTest {
 
     @Test
     public void checkout_shouldReturnTotalPriceOf3ItemAS() {
-        Integer result = checkoutSolution.checkout("A,A,A");
+        Integer result = checkoutSolution.checkout("A, A, A");
 
         assertThat(result, is(130));
     }

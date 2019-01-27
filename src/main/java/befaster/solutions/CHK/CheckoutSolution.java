@@ -11,7 +11,7 @@ public class CheckoutSolution {
 
         List<Item> items = new ArrayList<>();
         for (String sku:individualSkus) {
-            Optional<Item> item = Optional.ofNullable(itemFactory.getItem(sku));
+            Optional<Item> item = Optional.ofNullable(itemFactory.getItem(sku.trim()));
             if (item.isPresent()) {
                 items.add(item.get());
             } else {

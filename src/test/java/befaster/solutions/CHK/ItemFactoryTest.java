@@ -67,5 +67,4 @@ public class ItemFactoryTest {
         Integer result = itemFactory.getTotalPrice(items);
         assertThat(result, is(45));
     }
-
 }

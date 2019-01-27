@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ItemFactory {
 
@@ -17,16 +16,11 @@ public class ItemFactory {
         discounts = createDiscounts();
     }
 
-
-
     public Item getItem(String a) {
         return items.stream().filter(item -> a.equals(item.getSku())).findFirst().orElse(null);
     }
 
     public Integer getTotalPrice(List<Item> items) {
-
-        List<Item> discountSkus = discounts.stream().map(Discount::getItem).collect(Collectors.toList());
-
         Map<String, Long> itemCounts = items.stream().collect(Collectors.groupingBy(Item::getSku, Collectors.counting()));
 
         List<Discount> itemsHasDiscount = discounts.stream().filter(
@@ -48,19 +42,17 @@ public class ItemFactory {
         total += itemsHasDiscount.stream().mapToInt(Discount::getDescountedPrice).sum();
         total += items.stream().mapToInt(Item::getPrice).sum();
 
-
         return total;
     }
 
-
     private List<Discount> createDiscounts() {
         Item a = new Item("A", 50);
-
+        Item b = new Item("B", 30);
 
         Discount discountA = new Discount(a, 3, 130);
+        Discount discountB = new Discount(b, 2, 45);
 
-
-        return Arrays.asList(discountA);
+        return Arrays.asList(discountA, discountB);
     }
 
     private List<Item> createItems() {
@@ -71,8 +63,6 @@ public class ItemFactory {
 
         return Arrays.asList(a, b, c, d);
     }
-
-
 }
 
 
