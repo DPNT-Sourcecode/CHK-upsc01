@@ -58,6 +58,23 @@ public class ItemFactoryTest {
         assertThat(result, is(160));
     }
 
+
+    @Test
+    public void getTotalPriceReturnsTotalPriceTakingIntoAccountDiscountsAndNormalPrices() {
+
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 50));
+        items.add(new Item("A", 30));
+        Integer result = itemFactory.getTotalPrice(items);
+        assertThat(result, is(180));
+    }
+
+
+//     - {"method":"checkout","params":["AAAA"],"id":"CHK_R1_015"}, expected: 180, got: 200
+// - {"method":"checkout","params":["AAAAA"],"id":"CHK_R1_016"}, expected: 230, got: 250
+// - {"method":"checkout","params":["BBB"],"id":"CHK_R1_020"}, expected: 75, got: 90
     @Test
     public void getTotalPriceReturnsTotalPriceTakingIntoAccountMultipleDiscounts() {
 
