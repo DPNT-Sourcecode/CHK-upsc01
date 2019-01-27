@@ -31,9 +31,9 @@ public class ItemFactory {
                         String sku = discount.getItem().getSku();
                         boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0;
                         if (discountPresent) {
-
-                            itemCounts.replace(sku, itemCounts.get(sku) - discount.getQuantity());
-                            if (itemCounts.get(sku) - discount.getQuantity() == 0) {
+                            long newCount = itemCounts.get(sku) - discount.getQuantity();
+                            itemCounts.replace(sku, newCount);
+                            if (newCount == 0) {
                                 itemCounts.remove(sku);
                             }
 
@@ -74,3 +74,4 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
+
