@@ -19,5 +19,9 @@ public class ItemFactory {
 
         return items.stream().filter(item -> a.equals(item.getSku())).findFirst().orElse(null);
     }
+
+    public static Integer getTotalPrice(List<Item> items) {
+        return null;
+    }
 }
 
