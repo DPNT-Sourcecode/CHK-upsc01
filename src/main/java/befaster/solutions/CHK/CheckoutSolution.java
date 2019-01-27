@@ -28,4 +28,3 @@ public class CheckoutSolution {
         return itemFactory.getTotalPrice(items);
     }
 }
-

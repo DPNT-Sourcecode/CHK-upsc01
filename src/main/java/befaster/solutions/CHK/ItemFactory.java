@@ -25,13 +25,18 @@ public class ItemFactory {
 
 
         List<Discount> itemsHasDiscount = new ArrayList<>();
-        while(itemCounts.size() == 0) {
+        while(itemCounts.size() != 0) {
              itemsHasDiscount.addAll(discounts.stream().filter(
                     discount -> {
                         String sku = discount.getItem().getSku();
                         boolean discountPresent = itemCounts.containsKey(sku) && itemCounts.get(sku) % discount.getQuantity() == 0;
                         if (discountPresent) {
-                            itemCounts.replace(sku, itemCounts.get(sku), itemCounts.get(sku) - discount.getQuantity());
+
+                            itemCounts.replace(sku, itemCounts.get(sku) - discount.getQuantity());
+                            if (itemCounts.get(sku) - discount.getQuantity() == 0) {
+                                itemCounts.remove(sku);
+                            }
+
                             for (int i = 0; i < discount.getQuantity(); i++) {
                                 Optional<Item> first = items.stream().filter(item -> item.getSku().equals(sku)).findFirst();
                                 first.ifPresent(items::remove);
@@ -69,5 +74,3 @@ public class ItemFactory {
         return Arrays.asList(a, b, c, d);
     }
 }
-
-
